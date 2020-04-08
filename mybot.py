@@ -3,10 +3,10 @@ import time
 import requests
 import json
 
-CONSUMER_KEY='LZRzlBIkatas4F1LiYVbtsFAm'
-CONSUMER_SECRET='wvjdHLNw2swfOpJWlIAjkoXmjfWx5O0chwZTb9nuj8swBIB8bi'
-ACCESS_KEY='1154749906961088513-XZuFt6BdxV9IVAH77TbHOiYSOwqqCo'
-ACCESS_SECRET='icXgBY0o8eKUqmZMqAE4Zzqy23bij2It9OYQtm3CU0fv8'
+CONSUMER_KEY=''#key
+CONSUMER_SECRET=''#sectetkey
+ACCESS_KEY=''#acesskey
+ACCESS_SECRET=''#secret accesskey
 
 auth=tweepy.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY,ACCESS_SECRET)
