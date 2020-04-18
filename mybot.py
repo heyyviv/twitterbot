@@ -3,10 +3,10 @@ import time
 import requests
 import json
 
-CONSUMER_KEY=''#key
-CONSUMER_SECRET=''#sectetkey
-ACCESS_KEY=''#acesskey
-ACCESS_SECRET=''#secret accesskey
+CONSUMER_KEY='xxxxx'#key
+CONSUMER_SECRET='xxxxx'#sectetkey
+ACCESS_KEY='xxxx'#acesskey
+ACCESS_SECRET='xxxxx'#secret accesskey
 
 auth=tweepy.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY,ACCESS_SECRET)
@@ -17,29 +17,35 @@ api=tweepy.API(auth)
 #"'in_reply_to_screen_name', 'author', 'user', 'geo', 'coordinates', 'place', 'contributors', 'is_quote_status', " \
 #"'retweet_count', 'favorite_count', 'favorited', 'retweeted', 'lang'])"
 FILE_NAME='last_seen.txt'
+
+
 def see_last_seen(fname):
     last_seen=open(fname,'r')
     last_id=int(last_seen.read().strip())
     last_seen.close()
     return last_id
+
+
+
 def store_last_seen(fname,last_id):
     last_seen=open(fname,'w')
     last_seen.write(str(last_id))
     last_seen.close()
     return
+
+
+#main function
 def reply_to_tweet():
+    #replying to mention tweet
     last_seen_id=see_last_seen(FILE_NAME)
     mentions=api.mentions_timeline(last_seen_id,tweet_mode='extended')
     for mention in reversed(mentions):
         last_seen_id=mention.id
         store_last_seen(FILE_NAME,last_seen_id)
-        if '@bewithviv' in mention.full_text.lower():
+        if '@username' in mention.full_text.lower():
             print("tweeting",flush=True)
             api.update_status('@'+mention.user.screen_name+"Thanks buddy ",mention.id)
-        url = "https://api.ratesapi.io/api/latest?base=USD"
-
-        payload = {}
-        headers = {}
+    #tweet to twitter account
     url = "https://api.ratesapi.io/api/latest?base=USD"
 
     payload = {}
@@ -56,9 +62,12 @@ def reply_to_tweet():
         except tweepy.TweepError as error:
             if error.api_code == 187:
                 # Do something special
-                print('duplicate message')
+                print('someting is wrong')
         else:
              pass
+
+
+
 while(True):
     reply_to_tweet()
     time.sleep(7200)
